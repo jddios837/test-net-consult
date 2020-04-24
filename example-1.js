@@ -2,8 +2,26 @@ import {createAll, cleanConsole} from './data';
 const companies = createAll();
 
 cleanConsole(1, companies);
-console.log('---- EXAMPLE 1 --- ', 'Put here your function');
+console.log('---- EXAMPLE 1 --- ', example1Function([]));
 
+function example1Function(list) {
+  return list.map((e) => {
+    e.users.map((user) => {
+      if (user.firstName === undefined) {
+        user.firstName = '';
+      }
+      user.firstName = capitalize(user.firstName);
+      user.lastName = capitalize(user.lastName);
+    });
+    e.name = capitalize(e.name);
+    return e;
+  });
+}
+
+function capitalize(s) {
+  if (typeof s !== 'string') return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
