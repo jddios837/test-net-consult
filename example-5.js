@@ -1,9 +1,40 @@
 import {cleanConsole, createAll} from './data';
+const math = require('lodash/math');
+import {usersByCompany} from './example-4';
 const companies = createAll();
 
 cleanConsole(5, companies);
-console.log('---- EXAMPLE 5 --- ', 'Put here your function');
+const usersList = usersByCompany(companies);
+console.log('---- EXAMPLE 5 --- ', averageUsers(usersList));
 
+function averageUsers(list) {
+  return {
+    size: list.length,
+    average: math.meanBy(list, function(o) {
+      return o.age;
+    }),
+    hasCar: countWithCar(list),
+    averageWithCar: averageWithCar(list),
+  };
+}
+
+function countWithCar(list) {
+  let count = 0;
+  list.forEach((u) => {
+    if (u.car) count++;
+  });
+  return count;
+}
+
+function averageWithCar(list) {
+  const usersWithCar = [];
+  list.forEach((u) => {
+    if (u.car) usersWithCar.push(u);
+  });
+  return math.meanBy(usersWithCar, function(o) {
+    return o.age;
+  });
+}
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 

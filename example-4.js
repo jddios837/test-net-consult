@@ -5,7 +5,7 @@ const companies = createAll();
 cleanConsole(4, companies);
 console.log('---- EXAMPLE 4 --- ', usersByCompany(companies));
 
-function usersByCompany(list) {
+export function usersByCompany(list) {
   const newListUsers = [];
   list.forEach((c) => {
     c.users.forEach((u) => {
