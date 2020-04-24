@@ -2,8 +2,23 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(2, companies);
-console.log('---- EXAMPLE 2 --- ', 'Put here your function');
+console.log('---- EXAMPLE 2 --- ', usersHasCar(companies, true));
 
+
+function usersHasCar(list, hasCar) {
+  return list.map((e) => {
+    const listHasCar = [];
+    e.users.forEach((u) => {
+      if (u.car == hasCar) {
+        listHasCar.push(u);
+      }
+    });
+    e.users = listHasCar;
+    e.usersLength = listHasCar.length;
+
+    return e;
+  });
+}
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 

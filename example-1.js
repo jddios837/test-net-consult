@@ -6,7 +6,7 @@ const collection = require('lodash/collection');
 cleanConsole(1, companies);
 console.log('---- EXAMPLE 1 --- ', changeCase(companies));
 
-function changeCase(list) {
+export function changeCase(list) {
   const l = list.map((e) => {
     e.users.map((user) => {
       if (user.firstName === undefined) {

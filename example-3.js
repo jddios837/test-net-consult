@@ -1,10 +1,33 @@
 import {cleanConsole, createAll} from './data';
-
+// import {changeCase} from './example-1';
 const companies = createAll();
 
 cleanConsole(3, companies);
-console.log('---- EXAMPLE 3 --- ', 'Put here your function');
+// const companiesPrepare = changeCase(companies);
 
+console.log('---- EXAMPLE 3 --- ', checkIsUpperFirst(companies));
+
+function checkIsUpperFirst(list) {
+  let band = true;
+  list.forEach((e) => {
+    e.users.forEach((user) => {
+      band = checkString(user.firstName);
+      band = checkString(user.lastName);
+    });
+    band = checkString(e.name);
+  });
+
+  return band;
+}
+
+function checkString(text) {
+  if (text == undefined || text.length == 0) return false;
+  if (text[0] !== text[0].toUpperCase()) {
+    return false;
+  } else {
+    return true;
+  }
+}
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
