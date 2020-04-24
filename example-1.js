@@ -2,9 +2,9 @@ import {createAll, cleanConsole} from './data';
 const companies = createAll();
 
 cleanConsole(1, companies);
-console.log('---- EXAMPLE 1 --- ', example1Function([]));
+console.log('---- EXAMPLE 1 --- ', changeCase());
 
-function example1Function(list) {
+function changeCase(list) {
   return list.map((e) => {
     e.users.map((user) => {
       if (user.firstName === undefined) {
