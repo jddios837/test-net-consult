@@ -1,11 +1,13 @@
 import {createAll, cleanConsole} from './data';
 const companies = createAll();
 
+const collection = require('lodash/collection');
+
 cleanConsole(1, companies);
-console.log('---- EXAMPLE 1 --- ', changeCase());
+console.log('---- EXAMPLE 1 --- ', changeCase(companies));
 
 function changeCase(list) {
-  return list.map((e) => {
+  const l = list.map((e) => {
     e.users.map((user) => {
       if (user.firstName === undefined) {
         user.firstName = '';
@@ -14,8 +16,10 @@ function changeCase(list) {
       user.lastName = capitalize(user.lastName);
     });
     e.name = capitalize(e.name);
+    e.users = collection.sortBy(e.users, ['firstName']);
     return e;
   });
+  return l.sort((a, b) => (a.users.length < b.users.length) ? 1 : -1);
 }
 
 function capitalize(s) {
