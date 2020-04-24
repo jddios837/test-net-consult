@@ -3,8 +3,26 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(6, companies);
-console.log('---- EXAMPLE 6 --- ', 'Put here your function');
+console.log('---- EXAMPLE 6 --- ', concatParams(companies));
 
+
+function concatParams(list) {
+  const newList = [];
+  list.map((c) => {
+    c.users.map((user) => {
+      const name = changeUpp(user.firstName) + changeUpp(user.lastName) + user.age;
+      newList.push({
+        [name]: user.car,
+      });
+    });
+  });
+  return newList;
+}
+
+function changeUpp(s) {
+  if (typeof s !== 'string') return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
