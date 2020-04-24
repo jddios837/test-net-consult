@@ -1,9 +1,24 @@
 import {cleanConsole, createAll} from './data';
+const collection = require('lodash/collection');
 const companies = createAll();
 
 cleanConsole(4, companies);
-console.log('---- EXAMPLE 4 --- ', 'Put here your function');
+console.log('---- EXAMPLE 4 --- ', usersByCompany(companies));
 
+function usersByCompany(list) {
+  const newListUsers = [];
+  list.forEach((c) => {
+    c.users.forEach((u) => {
+      newListUsers.push({company: c.name, ...u});
+    });
+  });
+  return collection.orderBy(newListUsers, ['age'], ['desc']);
+  // list.forEach((e) => {
+  //   e.users.forEach((user) => {
+
+  //   })
+  // });
+}
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
