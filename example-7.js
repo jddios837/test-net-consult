@@ -3,15 +3,15 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(7, companies);
-console.log('---- EXAMPLE 7 part 1 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 2 --- ', 'Put here your function');
+console.log('---- EXAMPLE 7 part 1 --- ', getNameCompany(companies, 2));
+console.log('---- EXAMPLE 7 part 2 --- ', removeCompany(companies, 3));
 console.log('---- EXAMPLE 7 part 3 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 4 --- ', 'Put here your function');
+console.log('---- EXAMPLE 7 part 4 --- ', addUser(companies, 4, 'Delgado', 'Juan', 35, true));
 console.log('---- EXAMPLE 7 part 5 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 6 --- ', 'Put here your function');
+console.log('---- EXAMPLE 7 part 6 --- ', removeUserInCompany(companies, 3, 3));
 console.log('---- EXAMPLE 7 part 7 --- ', 'Put here your function');
 console.log('---- EXAMPLE 7 part 8 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
+console.log('---- EXAMPLE 7 part 9 --- ', changeUserInCompany(companies, 4, 2, 5));
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
@@ -19,8 +19,20 @@ console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
 // Parte 1: Crear una función tomando como parámetro un "id" de "company" y
 // devolviendo el nombre de esta "company".
 
+function getNameCompany(arr, id) {
+  const company = arr.find((c) => {
+    if (c.id == id) return c;
+  });
+  return company.name;
+}
+
 // Parte 2: Crear una función tomando como parámetro un "id" de "company" y
 // quitando la "company" de la lista.
+function removeCompany(arr, id) {
+  return arr.filter(function(ele) {
+    return ele.id != id;
+  });
+}
 
 // Parte 3: Crear una función tomando como parámetro un "id" de "company" y
 // permitiendo hacer un PATCH (como con una llamada HTTP) en todos los
@@ -31,6 +43,21 @@ console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
 // dueño de un carro. El nuevo "user" debe agregarse a la lista de "users" de este
 // "company" y tener un "id" generado automáticamente. La función también debe modificar
 // el atributo "usersLength" de "company".
+function addUser(arr, id, firstName, lastName, age, hasCar) {
+  const company = arr.find((c) => {
+    if (c.id == id) return c;
+  });
+  const newId = company.users[company.users.length - 1].id + 1;
+  company.users.push({
+    id: newId,
+    firstName,
+    lastName,
+    car: hasCar,
+    age,
+  });
+  company.usersLength = company.users.length;
+  return arr;
+}
 
 // Parte 5: Crear una función tomando como parámetro un "id" de "company" y
 // permitiendo hacer un PUT (como con una llamada HTTP) en esta "company" excepto
@@ -39,6 +66,22 @@ console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
 // Parte 6: Crear una función tomando como parámetro un "id" de "company" y un
 // "id" de "user". La función debe quitar este "user" de la lista de "users"
 // de "company" y cambiar el atributo "usersLength" de "company".
+function removeUserInCompany(arr, companyId, userId) {
+  const company = arr.find((c) => {
+    if (c.id == companyId) return c;
+  });
+
+  company.users = removeUser(company.users, userId);
+  company.usersLength = company.users.length;
+
+  return arr;
+}
+
+function removeUser(arr, id) {
+  return arr.filter(function(ele) {
+    return ele.id != id;
+  });
+}
 
 // Parte 7: Crear una función tomando como parámetro un "id" de "company" y un
 // "id" de "user" que permite hacer un PATCH (como con una llamada HTTP) en este
@@ -52,6 +95,22 @@ console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
 // un "id" de "user". La función debe permitir que el user sea transferido de la
 // primera "company" a la segunda "company". El atributo "usersLength" de cada
 // "company" debe actualizarse.
+function changeUserInCompany(arr, userId, originCompanyId, endCompanyId) {
+  const company = arr.find((c) => {
+    if (c.id == originCompanyId) return c;
+  });
+  const companyToCopy = arr.find((c) => {
+    if (c.id == endCompanyId) return c;
+  });
+  const user = company.users.find((u) => {
+    if (u.id == userId) return u;
+  });
+  companyToCopy.users.push(user);
+  companyToCopy.usersLength = companyToCopy.users.length;
+
+  removeUserInCompany(arr, originCompanyId, userId);
+  return arr;
+}
 
 // -----------------------------------------------------------------------------
 // INSTRUCTIONS IN ENGLISH
