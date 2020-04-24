@@ -13,11 +13,6 @@ function usersByCompany(list) {
     });
   });
   return collection.orderBy(newListUsers, ['age'], ['desc']);
-  // list.forEach((e) => {
-  //   e.users.forEach((user) => {
-
-  //   })
-  // });
 }
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
